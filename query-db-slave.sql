@@ -1,0 +1,22 @@
+
+DROP DATABASE IF EXISTS rumahsakit;
+
+CREATE DATABASE IF NOT EXISTS rumahsakit;
+
+STOP REPLICA;
+RESET REPLICA ALL;
+
+CHANGE REPLICATION SOURCE TO
+  SOURCE_HOST = 'db-master',
+  SOURCE_USER = 'prodisi',
+  SOURCE_PASSWORD = 'prodisi',
+  SOURCE_LOG_FILE = 'mysql-bin.000001',
+  SOURCE_LOG_POS = 728;
+
+START REPLICA;
+
+SHOW REPLICA STATUS;
+
+SELECT * FROM pasien p;
+SELECT * FROM pasien WHERE nama_pasien  = 'Uji Replikasi';
+SELECT * FROM obat o;
